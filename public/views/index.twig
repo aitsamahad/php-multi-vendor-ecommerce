@@ -1,0 +1,202 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+  <div id="container">
+
+    <div class="container">
+      <div class="row">
+        <!-- Left Part Start-->
+        <aside id="column-left" class="col-sm-3 hidden-xs">
+          <h3 class="subtitle">Categories</h3>
+          <div class="box-category">
+            <ul id="cat_accordion">
+            {% for category in categories %}
+              <li><a href="{{ path_for('site.category', {'categoryid': category.c_id}) }}">{{ category.c_name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="list-group">
+            <h3 class="subtitle">Brands</h3>
+            <div class="box-category">
+            <ul id="cat_accordion">
+            {% for brand in brands %}
+              <li><a href="{{ path_for('site.brand', {'brandid': brand.b_id}) }}">{{ brand.b_name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          </div>
+        </aside>
+        <!-- Left Part End-->
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-9">
+          <!-- Slideshow Start-->
+          <div class="slideshow single-slider owl-carousel">
+            <div class="item"> <a href="#"><img class="img-responsive" src="{{asset('image/slider/slideImage1.jpg', 'img')}}" alt="banner 1" /></a> </div>
+            <div class="item"> <a href="#"><img class="img-responsive" src="{{asset('image/slider/slideImage2.jpg', 'img')}}" alt="banner 2" /></a> </div>
+          </div>
+          <!-- Slideshow End-->
+          <!-- Featured Product Start-->
+          <h3 class="subtitle">Featured</h3>
+          <div class="owl-carousel product_carousel">
+          {% set index = 0 %}
+          {% for product in products %}
+            <div class="product-thumb clearfix">
+              <div class="image">
+                <a href="{{ path_for('product.page', {'productid': product.p_id}) }}">
+                {% for productImage in productImages %}
+                  {% if productImage.product_id is same as (index) %}
+
+                  {% else %}
+                    {% if productImage.product_id is same as (product.p_id) %}
+                    {% set index = product.p_id %}
+                      <img src="data:image;base64,{{ productImage.image }}" alt="{{ product.p_name }}" title="{{ product.p_name }}" class="img-responsive" />
+                    {% endif %}
+                  {% endif %}
+                {% endfor %}
+                </a>
+              </div>
+              <div class="caption">
+                <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}">{{ product.p_name }}</a></h4>
+                <p class="price"><span class="price-new">Rs.{{ product.p_price }}</span></p>
+              </div>
+              <div class="button-group">
+                {% if auth.check %}
+                      <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onClick="cart.add('42');"><span>Add to Cart</span></button></a>
+                      {% else %}
+                      <button type="button" id="button-cart" class="btn btn-primary btn-lg">Please Log in first</button>
+                      {% endif %}
+                <div class="add-to-links">
+                  <button type="button" data-toggle="tooltip" title="Add to Wish List" onClick=""><i class="fa fa-heart"></i></button>
+                </div>
+              </div>
+            </div>
+          {% endfor %}
+          </div>
+          <!-- Featured Product End-->
+          <!-- Banner Start-->
+          <div class="marketshop-banner">
+            <div class="row">
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#"><img src="{{asset('./image/banner/smallBanner1.jpg', 'img')}}" alt="Sample Banner 3" title="Sample Banner 3" /></a></div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#"><img src="{{asset('./image/banner/smallBanner2.jpg', 'img')}}" alt="Sample Banner" title="Sample Banner" /></a></div>
+              <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12"><a href="#"><img src="{{asset('./image/banner/smallBanner3.jpg', 'img')}}" alt="Sample Banner 2" title="Sample Banner 2" /></a></div>
+            </div>
+          </div>
+          <!-- Banner End-->
+          <!-- Categories Product Slider Start -->
+          <h3 class="subtitle">Electronic Devices - <a class="viewall" href="{{ path_for('site.category', {'categoryid': 1}) }}">view all</a></h3>
+          <div class="owl-carousel latest_category_carousel">
+          {% set index = 0 %}
+            {% for product in firstCat %}
+            {% if product.p_id is same as (index) %}
+
+            {% else %}
+            {% set index = product.p_id %}
+            <div class="product-thumb clearfix">
+              <div class="image">
+                <a href="{{ path_for('product.page', {'productid': product.p_id}) }}">
+                      <img src="data:image;base64,{{ product.image }}" alt="{{ product.p_name }}" title="{{ product.p_name }}" class="img-responsive" />
+                </a>
+              </div>
+              <div class="caption">
+                <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}">{{ product.p_name }}</a></h4>
+                <p class="price"><span class="price-new">Rs.{{ product.p_price }}</span></p>
+              </div>
+              <div class="button-group">
+              {% if auth.check %}
+                      <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onClick="cart.add('42');"><span>Add to Cart</span></button></a>
+                      {% else %}
+                      <button type="button" id="button-cart" class="btn btn-primary btn-lg">Please Log in first</button>
+                      {% endif %}
+                <div class="add-to-links">
+                  <button type="button" data-toggle="tooltip" title="Add to Wish List" onClick=""><i class="fa fa-heart"></i></button>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+          </div>
+          <!-- Categories Product Slider End -->
+
+          <!-- Banner Start -->
+          <div class="marketshop-banner">
+            <div class="row">
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><a href="#"><img src="{{asset('./image/banner/blockBanner1.jpg', 'img')}}" alt="2 Block Banner" title="2 Block Banner" /></a></div>
+              <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12"><a href="#"><img src="{{asset('./image/banner/blockBanner2.jpg', 'img')}}" alt="2 Block Banner 1" title="2 Block Banner 1" /></a></div>
+            </div>
+          </div>
+          <!-- Banner End -->
+          <!-- Categories Product Slider Start -->
+          <h3 class="subtitle">Sports & Outdoors - <a class="viewall" href="{{ path_for('site.category', {'categoryid': 2}) }}">view all</a></h3>
+          <div class="owl-carousel latest_category_carousel">
+          {% set index = 0 %}
+            {% for product in secondCat %}
+            {% if product.p_id is same as (index) %}
+
+            {% else %}
+            {% set index = product.p_id %}
+            <div class="product-thumb clearfix">
+              <div class="image">
+                <a href="{{ path_for('product.page', {'productid': product.p_id}) }}">
+                      <img src="data:image;base64,{{ product.image }}" alt="{{ product.p_name }}" title="{{ product.p_name }}" class="img-responsive" />
+                </a>
+              </div>
+              <div class="caption">
+                <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}">{{ product.p_name }}</a></h4>
+                <p class="price"><span class="price-new">Rs.{{ product.p_price }}</span></p>
+              </div>
+              <div class="button-group">
+                {% if auth.check %}
+                      <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onClick="cart.add('42');"><span>Add to Cart</span></button></a>
+                      {% else %}
+                      <button type="button" id="button-cart" class="btn btn-primary btn-lg">Please Log in first</button>
+                      {% endif %}
+                <div class="add-to-links">
+                  <button type="button" data-toggle="tooltip" title="Add to Wish List" onClick=""><i class="fa fa-heart"></i></button>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+            
+          </div>
+          <!-- Categories Product Slider End -->
+          <!-- Brand Product Slider Start-->
+          <h3 class="subtitle">Nutritions - <a class="viewall" href="{{ path_for('site.category', {'categoryid': 3}) }}">view all</a></h3>
+          <div class="owl-carousel latest_brands_carousel">
+          {% set index = 0 %}
+            {% for product in thirdCat %}
+            {% if product.p_id is same as (index) %}
+
+            {% else %}
+            {% set index = product.p_id %}
+            <div class="product-thumb clearfix">
+              <div class="image">
+                <a href="{{ path_for('product.page', {'productid': product.p_id}) }}">
+                      <img src="data:image;base64,{{ product.image }}" alt="{{ product.p_name }}" title="{{ product.p_name }}" class="img-responsive" />
+                </a>
+              </div>
+              <div class="caption">
+                <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}">{{ product.p_name }}</a></h4>
+                <p class="price"><span class="price-new">Rs.{{ product.p_price }}</span></p>
+              </div>
+              <div class="button-group">
+                <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onClick="cart.add('42');"><span>Add to Cart</span></button></a>
+                <div class="add-to-links">
+                  <button type="button" data-toggle="tooltip" title="Add to Wish List" onClick=""><i class="fa fa-heart"></i></button>
+                </div>
+              </div>
+            </div>
+            {% endif %}
+          {% endfor %}
+          </div>
+          <!-- Brand Product Slider End -->
+        </div>
+        <!--Middle Part End-->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

@@ -1,0 +1,60 @@
+<p>Greetings from VirtualDukan!</p>
+
+<pre>{{ user.u_name }},
+
+Thank you for your order from VirtualDukan. 
+Once your package ships we will send you a tracking number. You can check the status of your order by logging into your account.
+
+If you have questions about your order, you can email us at support@virtualdukan.com.
+</pre>
+
+<pre>
+Billing Info/Shipping Info
+{{ user.u_name }}
+{{ userDetail.user_address }},
+{{ userDetail.user_city }}, {{ userDetail.user_state }}, {{ userDetail.user_postcode }}
+Pakistan
+T: {{ userDetail.user_phone }}
+
+Payment Method
+{{ orders[0].payment_name }}
+
+
+{% for order in orders %}
+Item Name: {{ order.p_name }}
+Item Price: PKR {{ order.t_price }}
+Item Quantity: {{ order.t_quantity }}
+Item Sub-Total: PKR {{ order.t_subtotal }}
+<br>
+{% endfor %}
+
+{% if orders[0].payment_name is same as ('Bank Transfer') %}
+Please Deposit your 'Grand Total' Amount on the bank details given below.
+    Bank Name: Standard Chartered
+    Title: Virtual Virtual
+    IBAN: STA23777880082832
+    Branch Code: 0056
+{% endif %}
+
+<pre><b>Grand Total</b> PKR {{ orders[0].total_price }} </pre>
+
+</pre>
+
+<pre><b>Special Instructions: </b> <u>{{ orders[0].order_note }}</u> </pre>
+
+<pre>
+For more information you can contact support: support@virtualdukan.com
+24/7 Customer Support : 115-222-442-44
+P.O Box 19923, SA EAST
+Address: VirtualDukan, 12B, 12th floor, Dolmen Executive Tower, Virtual Block 4, Virtual City. Pakistan
+</pre>
+
+
+
+<center>    
+<pre style="font-size: 10px;">You have received this email, because you or someone else has confirmed that the email address aitsama.ahad@gmail.com 
+would like to receive email communication from VirtualDukan. We will never share your personal information (such as your email 
+address with any other 3rd party without your consent).
+
+This email was sent by: VirtualDukan, 12B, 12th floor, Dolmen Executive Tower, Virtual Block 4, Virtual City. Pakistan</pre>
+</center>

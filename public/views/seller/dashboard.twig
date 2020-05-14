@@ -1,0 +1,107 @@
+{% extends './seller/templates/app.twig' %}
+
+{% block content %}
+<div class="content-wrapper" style="min-height: 625px;">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Dashboard</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Seller Area</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+
+        <!-- /.row -->
+        <!-- Main row -->
+        <div class="row">
+          <!-- Left col -->
+          <section class="col-lg-7 connectedSortable ui-sortable">
+            <div class="small-box bg-success">
+              <div class="inner">
+                <h3>{{ productsUnApproved }}</h3>
+
+                <p>Total Products (Un-Approved)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-stats-bars"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+
+            {#  #}
+              <div class="small-box bg-warning">
+              <div class="inner">
+                <h3>{{ questionsUnAnswered }}</h3>
+
+                <p>Total Questions (Not-Answered)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-help"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            {#  #}
+          </section>
+          <!-- /.Left col -->
+          <!-- right col (We are only adding the ID to make the widgets sortable)-->
+          <section class="col-lg-5 connectedSortable ui-sortable">
+             <div class="small-box bg-info">
+              <div class="inner">
+                <h3>{{ productsApproved }}</h3>
+
+                <p>Total Products (Approved)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-bag"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            {#  #}
+                        <div class="small-box bg-danger">
+              <div class="inner">
+                <h3>{{ ordersPending }}</h3>
+
+                <p>Total Orders (Pending)</p>
+              </div>
+              <div class="icon">
+                <i class="ion ion-request"></i>
+              </div>
+              <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+            {#  #}
+          </section>
+          <!-- right col -->
+        </div>
+        <!-- /.row (main row) -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+<script>
+
+function preview_image() 
+{
+ var total_file=document.getElementById("customFile").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').empty();
+  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' width='100%'><br>");
+ }
+}
+</script>
+
+{% endblock %}

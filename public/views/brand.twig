@@ -1,0 +1,72 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+  <div id="container">
+    <!-- Feature Box Start-->
+
+    <!-- Feature Box End-->
+    <div class="container">
+      <div class="row">
+        <!-- Left Part Start-->
+        <aside id="column-left" class="col-sm-3 hidden-xs">
+          <h3 class="subtitle">Categories</h3>
+          <div class="box-category">
+            <ul id="cat_accordion">
+            {% for category in categories %}
+              <li><a href="{{ path_for('site.category', {'categoryid': category.c_id}) }}">{{ category.c_name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          <div class="list-group">
+            <h3 class="subtitle">Brands</h3>
+            <div class="box-category">
+            <ul id="cat_accordion">
+            {% for brand in brands %}
+              <li><a href="{{ path_for('site.brand', {'brandid': brand.b_id}) }}">{{ brand.b_name }}</a>
+              </li>
+            {% endfor %}
+            </ul>
+          </div>
+          </div>
+        </aside>
+        <!-- Left Part End-->
+<div id="content" class="col-sm-9">
+          <h1 class="title">{{ singleBrand.b_name }}</h1>
+          <h3 class="subtitle">Refine Search</h3>
+          <br>
+          <div class="row products-category">
+          {% set index = 0 %}
+          {% for product in products %}
+          {% if index is same as (product.p_id) %}
+
+          {% else %}
+          {% set index = product.p_id %}
+            <div class="product-layout product-grid col-lg-5ths col-md-5ths col-sm-3 col-xs-12">
+              <div class="product-thumb">
+                <div class="image"><a href="{{ path_for('product.page', {'productid': product.p_id}) }}"><img src="data:image;base64,{{ product.image }}" alt=" {{ product.p_name }} " title=" {{ product.p_name }} " class="img-responsive"></a></div>
+                <div>
+                  <div class="caption">
+                    <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}"> {{ product.p_name }} </a></h4>
+                    <p class="description"> {{ product.p_description }} </p>
+                    <p class="price"> <span class="price-new">Rs.{{ product.p_price }}</span></p>
+                  </div>
+                  <div class="button-group">
+                    <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onclick=""><span>Add to Cart</span></button></a>
+                    <div class="add-to-links">
+                      <button type="button" data-toggle="tooltip" title="" onclick="" data-original-title="Add to Wish List"><i class="fa fa-heart"></i> <span>Add to Wish List</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

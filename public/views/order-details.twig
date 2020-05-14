@@ -1,0 +1,105 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="{{ path_for('main.page') }}"><i class="fa fa-home"></i></a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="{{ path_for('order.page') }}">Order History</a></li>
+        <li><a href="#">Order Information</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-9">
+        <h1 class="title">Order Information</h1>
+        
+        <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <td colspan="2" class="text-left">Order Details</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 50%;" class="text-left">              <b>Order ID:</b> #{{ order.order_id }}<br>
+              <b>Date Added:</b> {{ order.created_at }}</td>
+            <td style="width: 50%;" class="text-left">              <b>Payment Method:</b><br> {{ order.payment_method }}
+                                                       </td>
+          </tr>
+        </tbody>
+      </table>
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <td style="width: 50%; vertical-align: top;" class="text-left">Payment Address</td>
+                        <td style="width: 50%; vertical-align: top;" class="text-left">Shipping Address</td>
+                      </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="text-left">{{ username.u_name }}<br>{{ order.address }}</td>
+                        <td class="text-left">{{ username.u_name }}<br>{{ order.address }}</td>
+                      </tr>
+        </tbody>
+      </table>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+          <thead>
+            <tr>
+              <td class="text-left">Product Name</td>
+              <td class="text-right">Quantity</td>
+              <td class="text-right">Price</td>
+              <td class="text-right">Total</td>
+                          </tr>
+          </thead>
+          <tbody>
+                        <tr>
+              <td class="text-left">{{ order.p_name }}                </td>
+              <td class="text-right">{{ order.t_quantity }}</td>
+              <td class="text-right">Rs.{{ order.t_price }}</td>
+              <td class="text-right">Rs.{{ order.t_subtotal }}</td>
+            </tr>
+                        
+                                  </tbody>
+          <tfoot>
+                        <tr>
+              <td colspan="2"></td>
+              <td class="text-right"><b>Total</b></td>
+              <td class="text-right">Rs.{{ order.t_subtotal }}</td>
+                            
+                          </tr>
+                      </tfoot>
+        </table>
+      </div>
+                  
+            <div class="buttons clearfix">
+        <div class="pull-right"><a class="btn btn-primary" href="{{ path_for('order.page') }}">Continue</a></div>
+      </div>
+              
+            
+               
+        </div>
+        <!--Middle Part End -->
+        <!--Right Part Start -->
+        <aside class="col-sm-3 hidden-xs" id="column-right">
+          <h3 class="subtitle">Account</h3>
+          <div class="list-group">
+            <ul class="list-item">
+              <li><a href="{{ path_for('account.addresses') }}">My Account</a></li>
+              <li><a href="{{ path_for('account.addresses') }}">Address Books</a></li>
+              <li><a href="{{ path_for('account.wishlist.page') }}">Wish List</a></li>
+              <li><a href="{{ path_for('reviews.page') }}">Reviews & Pending Reviews</a></li>
+              <li><a href="{{ path_for('order.page') }}">Order History</a></li>
+              <li><a href="{{ path_for('change.password') }}">Change Password</a></li>
+            </ul>
+          </div>
+        </aside>
+        <!--Right Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

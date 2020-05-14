@@ -1,0 +1,90 @@
+{% extends './dashboard/templates/app.twig' %}
+
+{% block content %}
+<div class="content-wrapper" style="min-height: 1200.88px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Vendors</h1> <br> <a href="{{ path_for('add.vendor') }}"><button class="btn btn-info">New Vendor</button></a>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Vendors</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">Vendors List</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                    {% if flash.getMessage('Success') %}
+                      <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+                    {% endif %}
+          
+                    {% if flash.getMessage('Danger') %}
+                      <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+                    {% endif %}
+              <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4"><div class="row"><div class="col-sm-12 col-md-6"><div class="dataTables_length" id="example1_length"></div></div><div class="col-sm-12 col-md-6"><div id="example1_filter" class="dataTables_filter"></div></div></div><div class="row"><div class="col-sm-12"><table id="example1" class="table table-bordered table-striped dataTable dtr-inline" role="grid" aria-describedby="example1_info">
+                <thead>
+                <tr role="row"><th class="sorting_asc" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Vendor Name: activate to sort column descending" aria-sort="ascending">Vendor Name</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Store Name: activate to sort column ascending">Store Name</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Operations: activate to sort column ascending">Operations</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Total Products: activate to sort column ascending">Total Products</th><th class="sorting" tabindex="0" aria-controls="example1" rowspan="1" colspan="1" aria-label="Created At: activate to sort column ascending">Created At</th></tr>
+                </thead>
+                <tbody>
+                {% for vendor in vendors %}
+                <tr role="row" class="odd">
+                  <td tabindex="0" class="sorting_1">{{ vendor.vendorName }}</td>
+                  <td>{{ vendor.storeName }}</td>
+                  <td>
+                  {% if vendor.storeStatus is same as (1) %}
+                    <a href="{{ path_for('ban.vendor', {'storeid': vendor.storeid}) }}"><button type="button" class="btn btn-warning"><li class="fas fa-ban"></li></button></a>
+                  {% else %}
+                    <a href="{{ path_for('activate.vendor', {'storeid': vendor.storeid}) }}"><button type="button" class="btn btn-success"><li class="fas fa-key"></li></button></a>
+                  {% endif %}
+                  <a href="{{ path_for('edit.vendor', {'storeid': vendor.storeid}) }}"><button type="button" class="btn btn-info"><li class="fas fa-pen"></li></button></a>
+                  <a href="{{ path_for('vendor.products', {'vendorid': vendor.vendorid}) }}"><button type="button" class="btn btn-outline-primary"><li class="fas fa-barcode"></li></button></a>
+                  <a href="{{ path_for('delete.vendor', {'storeid': vendor.storeid}) }}"><button type="button" class="btn btn-danger"><li class="fas fa-trash"></li></button></a>
+                  </td>
+                  <td>{{ vendor.totalProducts }}</td>
+                  <td>{{ vendor.createdAt }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+              </table></div></div></div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+    </section>
+    <!-- /.content -->
+  </div>
+
+
+  <script>
+
+function preview_image() 
+{
+ var total_file=document.getElementById("customFile").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').empty();
+  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' width='100%'><br>");
+ }
+}
+</script>
+
+{% endblock %}

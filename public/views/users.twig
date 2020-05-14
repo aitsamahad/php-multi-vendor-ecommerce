@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Registered Users - BC160400143 Test Phase</title>
+<style>
+  #customers {
+    font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  
+  #customers td, #customers th {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  #customers tr:nth-child(even){background-color: #f2f2f2;}
+  
+  #customers tr:hover {background-color: #ddd;}
+  
+  #customers th {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    text-align: left;
+    background-color: rgb(60, 95, 148);
+    color: white;
+  }
+
+  table { 
+    width: 100%; 
+    border-collapse: collapse; 
+  }
+
+  a {
+    color: dodgerblue;
+  }
+
+  hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+  }
+
+  .registerbtn {
+    background-color: rgb(60, 95, 148);
+    color: white;
+    padding: 16px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 40%;
+    margin: 2%;
+    margin-left: 5%;
+    opacity: 0.9;
+  }
+  
+  .registerbtn:hover {
+    opacity: 1;
+  }
+  </style>
+</head>
+<body>
+  <div style="overflow-x:auto;">
+  <table id="customers">
+    <tr>
+      <th>#</th>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Password (Encrypted)</th>
+      <th>Email Address</th>
+    </tr>
+    {% for user in users %}
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.username }}</td>
+      <td>{{ user.password }}</td>
+      <td>{{ user.email_address }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+  </div>
+  <hr>
+  <a href="{{ path_for('get.users.ascending') }}"><button type="submit" class="registerbtn">Sort Ascending</button></a>
+  <a href="{{ path_for('get.users.descending') }}"><button type="submit" class="registerbtn">Sort Descending</button></a>
+  <p>Want to add more users? <a href="{{ path_for('register') }}">Register here!</a></p>
+  </body>
+</html>

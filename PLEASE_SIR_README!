@@ -1,0 +1,13 @@
+To get this project to work, please create database named 'multi_vendor' and then import the backup that is given in this folder by the name of 'multi_vendor.sql',
+Database: multi_vendor
+
+or if you want to change the name of the database and table just modify the two files in the project folder.
+
+-First File to modify
+Goto app>Db>Constants.php
+and change 
+define('DB_NAME', 'multi_vendor');    	********put your database name where 'test_phase' is******
+define('DB_USER', 'dev');		********put your database user where 'dev' is******
+define('DB_PASSWORD', '78737');		********put your database password where '78737' is******
+
+or simple just use the .sql file given in the testphase project folder and import it in your databse to get the correct table structure.

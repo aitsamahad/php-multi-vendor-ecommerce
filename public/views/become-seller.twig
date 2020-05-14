@@ -1,0 +1,96 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Become a Seller</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <!--Middle Part Start-->
+        <div class="col-sm-9" id="content">
+          <h1 class="title">Apply to become a Seller</h1>
+          <p>If you already are an active seller with us, please visit our <a href="{{ path_for('seller.section') }}">Seller Section</a>.</p>
+          
+          {% if flash.getMessage('Success') %}
+          <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+          {% endif %}
+          
+          {% if flash.getMessage('Danger') %}
+          <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+          {% endif %}
+          
+          <form class="form-horizontal" action="{{ path_for('become.seller') }}" method="POST">
+            <fieldset id="account">
+              <legend>Your Store Details</legend>
+              <div style="display: none;" class="form-group required">
+                <label class="col-sm-2 control-label">Customer Group</label>
+                <div class="col-sm-10">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" checked="checked" value="1" name="customer_group_id">
+                      Default</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-s_store_name" class="col-sm-2 control-label">Store Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-s_store_name" placeholder="Store Name" value="{{ old.s_store_name }}" name="s_store_name">
+                    {% if errors.s_store_name %}
+                        <span class='help-block' style="color:red"> {{errors.s_store_name | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-s_store_address" class="col-sm-2 control-label">Store Address</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-s_store_address" placeholder="Store Address" value="{{ old.s_store_address }}" name="s_store_address">
+                    {% if errors.s_store_address %}
+                        <span class='help-block' style="color:red"> {{errors.s_store_address | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+            </fieldset>
+            <div class="buttons">
+              <div class="pull-right">
+                <input type="checkbox" value="1" name="agree" onchange="document.getElementById('submitUser').disabled = !this.checked;">
+                &nbsp;I have read and agree to the <a class="agree" href="#"><b>Privacy Policy</b></a> &nbsp;
+                <input type="submit" class="btn btn-primary" value="Continue" id="submitUser" disabled>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!--Middle Part End -->
+        <!--Right Part Start -->
+        {# <aside id="column-right" class="col-sm-3 hidden-xs">
+          <h3 class="subtitle">Account</h3>
+          <div class="list-group">
+            <ul class="list-item">
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+              <li><a href="#">Forgotten Password</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Address Books</a></li>
+              <li><a href="wishlist.html">Wish List</a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Downloads</a></li>
+              <li><a href="#">Reward Points</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Transactions</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">Recurring payments</a></li>
+            </ul>
+          </div>
+        </aside> #}
+        <!--Right Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

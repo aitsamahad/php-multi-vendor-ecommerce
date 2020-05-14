@@ -1,0 +1,73 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+        <li><a href="login.html">Account</a></li>
+        <li><a href="login.html">Vefiry Token & Change Password</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-9">
+          <h1 class="title">Verify Token & Change Password</h1>
+          <div class="row">
+            <div class="col-sm-9">
+              <h2 class="subtitle">Enter your Verification token</h2>
+          {% if flash.getMessage('Success') %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+          {% endif %}
+          
+          {% if flash.getMessage('Danger') %}
+            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+          {% endif %}
+              <form action="{{ path_for('main.reset.token') }}" method="POST" autocomplete="off">
+                <div class="form-group">
+                  <label class="control-label" for="input-email">Verification Token</label>
+                  <input type="text" name="token" value="" placeholder="$9adau8u:4981$02109309" id="input-email" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="input-email">E-Mail Address</label>
+                  <input type="email" name="email" value="" placeholder="E-Mail Address" id="input-email" class="form-control" autocomplete="off" required>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="input-email">New Password</label>
+                  <input type="password" name="password" value="" placeholder="E-Mail Address" id="input-email" class="form-control" autocomplete="off" required>
+                </div>
+                <input type="submit" value="Vefiry & Change" class="btn btn-primary">
+              </form>
+            </div>
+          </div>
+        </div>
+        <!--Middle Part End -->
+        <!--Right Part Start -->
+        {# <aside id="column-right" class="col-sm-3 hidden-xs">
+          <h3 class="subtitle">Account</h3>
+          <div class="list-group">
+            <ul class="list-item">
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+              <li><a href="#">Forgotten Password</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Address Books</a></li>
+              <li><a href="wishlist.html">Wish List</a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Downloads</a></li>
+              <li><a href="#">Reward Points</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Transactions</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">Recurring payments</a></li>
+            </ul>
+          </div>
+        </aside> #}
+        <!--Right Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

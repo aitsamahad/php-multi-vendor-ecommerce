@@ -1,0 +1,29 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+<script type="text/javascript">
+    window.setTimeout(function() {
+        window.location.href='{{ path_for('main.page') }}';
+    }, 5000);
+</script>
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="{{ path_for('main.page') }}"><i class="fa fa-home"></i></a></li>
+        <li><a href="#">Reports</a></li>
+        <li><a href="#">Report - Reported!</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <div class="col-md-12">
+              <div style="background: lightgreen;" class="featured-box well text-center"> <h2><i class="featured-icon fa fa-check"></i></h2>
+                <h4>Thank You</h4>
+                <p>Your report has been received, you will be contacted from our support regarding your complain shortly.</p>
+                <small>You will be redirected to the main page in 5 seconds, if not <a href="{{ path_for('main.page') }}" >click here</a></small> </div>
+            </div>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

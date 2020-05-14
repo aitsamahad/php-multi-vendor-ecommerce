@@ -1,0 +1,13 @@
+php_flag display_errors 0
+
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+    RewriteEngine On
+
+    # Redirect All Requests To The Subfolder
+    RewriteRule ^ public
+
+</IfModule>

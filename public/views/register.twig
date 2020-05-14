@@ -1,0 +1,164 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="index.html"><i class="fa fa-home"></i></a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="{{ path_for('register.page') }}">Register</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <!--Middle Part Start-->
+        <div class="col-sm-9" id="content">
+          <h1 class="title">Register Account</h1>
+          <p>If you already have an account with us, please login at the <a href="{{ path_for('signIn.page') }}">Login Page</a>.</p>
+          
+          {% if flash.getMessage('Success') %}
+          <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+          {% endif %}
+          
+          {% if flash.getMessage('Danger') %}
+          <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+          {% endif %}
+          
+          <form class="form-horizontal" action="{{ path_for('register.page') }}" method="POST">
+            <fieldset id="account">
+              <legend>Your Personal Details</legend>
+              <div style="display: none;" class="form-group required">
+                <label class="col-sm-2 control-label">Customer Group</label>
+                <div class="col-sm-10">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" checked="checked" value="1" name="customer_group_id">
+                      Default</label>
+                  </div>
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-firstname" class="col-sm-2 control-label">Full Name</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-firstname" placeholder="Full Name" value="{{ old.u_name }}" name="u_name">
+                    {% if errors.u_name %}
+                        <span class='help-block' style="color:red"> {{errors.u_name | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-email" class="col-sm-2 control-label">E-Mail</label>
+                <div class="col-sm-10">
+                  <input type="email" class="form-control" id="input-email" placeholder="E-Mail" value="{{ old.u_email }}" name="u_email">
+                    {% if errors.u_email %}
+                        <span class='help-block' style="color:red"> {{errors.u_email | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-telephone" class="col-sm-2 control-label">Phone/Mobile</label>
+                <div class="col-sm-10">
+                  <input type="tel" class="form-control" id="input-telephone" placeholder="Telephone" value="{{ old.user_phone }}" name="user_phone">
+                    {% if errors.user_phone %}
+                        <span class='help-block' style="color:red"> {{errors.user_phone | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+            </fieldset>
+            <fieldset id="address">
+              <legend>Your Address</legend>
+              <div class="form-group required">
+                <label for="input-address-1" class="col-sm-2 control-label">Address </label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-address-1" placeholder="Address " value="{{ old.user_address }}" name="user_address">
+                  {% if errors.user_address %}
+                        <span class='help-block' style="color:red"> {{errors.user_address | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-city" class="col-sm-2 control-label">City</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-city" placeholder="City" value="{{ old.user_city }}" name="user_city">
+                  {% if errors.user_city %}
+                        <span class='help-block' style="color:red"> {{errors.user_city | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-postcode" class="col-sm-2 control-label">Post Code</label>
+                <div class="col-sm-10">
+                  <input type="text" class="form-control" id="input-postcode" placeholder="Post Code" value="{{ old.user_postcode }}" name="user_postcode">
+                  {% if errors.user_postcode %}
+                        <span class='help-block' style="color:red"> {{errors.user_postcode | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+              <div class="form-group required">
+                <label for="input-zone" class="col-sm-2 control-label">Region / State</label>
+                <div class="col-sm-10">
+                  <select class="form-control" id="input-zone" name="user_state">
+                    <option value=""> --- Please Select --- </option>
+                    <option value="Sindh">Sindh</option>
+                    <option value="Punjab">Punjab</option>
+                    <option value="KPK">KPK</option>
+                    <option value="Balochistan">Balochistan</option>
+                    <option value="AJK">AJK</option>
+                    <option value="Federal State/Islamabad">Federal State/Islamabad</option>
+                  </select>
+                  {% if errors.user_state %}
+                        <span class='help-block' style="color:red"> {{errors.user_state | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+            </fieldset>
+            <fieldset>
+              <legend>Your Password</legend>
+              <div class="form-group required">
+                <label for="input-password" class="col-sm-2 control-label">Password</label>
+                <div class="col-sm-10">
+                  <input type="password" class="form-control" id="input-password" placeholder="Password" value="" name="u_password">
+                  {% if errors.u_password %}
+                        <span class='help-block' style="color:red"> {{errors.u_password | first}} </span>
+                    {% endif %}
+                </div>
+              </div>
+            </fieldset>
+            <div class="buttons">
+              <div class="pull-right">
+                <input type="checkbox" value="1" name="agree" onchange="document.getElementById('submitUser').disabled = !this.checked;">
+                &nbsp;I have read and agree to the <a class="agree" href="#"><b>Privacy Policy</b></a> &nbsp;
+                <input type="submit" class="btn btn-primary" value="Continue" id="submitUser" disabled>
+              </div>
+            </div>
+          </form>
+        </div>
+        <!--Middle Part End -->
+        <!--Right Part Start -->
+        {# <aside id="column-right" class="col-sm-3 hidden-xs">
+          <h3 class="subtitle">Account</h3>
+          <div class="list-group">
+            <ul class="list-item">
+              <li><a href="login.html">Login</a></li>
+              <li><a href="register.html">Register</a></li>
+              <li><a href="#">Forgotten Password</a></li>
+              <li><a href="#">My Account</a></li>
+              <li><a href="#">Address Books</a></li>
+              <li><a href="wishlist.html">Wish List</a></li>
+              <li><a href="#">Order History</a></li>
+              <li><a href="#">Downloads</a></li>
+              <li><a href="#">Reward Points</a></li>
+              <li><a href="#">Returns</a></li>
+              <li><a href="#">Transactions</a></li>
+              <li><a href="#">Newsletter</a></li>
+              <li><a href="#">Recurring payments</a></li>
+            </ul>
+          </div>
+        </aside> #}
+        <!--Right Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

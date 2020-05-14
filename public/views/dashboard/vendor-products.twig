@@ -1,0 +1,143 @@
+{% extends './dashboard/templates/app.twig' %}
+
+{% block content %}
+<div class="content-wrapper" style="min-height: 1416.81px;">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Vendor Products</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Vendor Products</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+
+      <!-- Default box -->
+      <div class="card">
+        {% if flash.getMessage('Success') %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+        {% endif %}
+          
+        {% if flash.getMessage('Danger') %}
+            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+        {% endif %}
+        <div class="card-header">
+          <h3 class="card-title">Vendor Product(s) List</h3>
+        </div>
+        <div class="card-body p-0">
+          <table class="table table-striped projects">
+              <thead>
+                  <tr>
+                      <th style="width: 1%">
+                          #
+                      </th>
+                      <th style="width: 20%">
+                          Product Title
+                      </th>
+                      <th style="width: 30%">
+                          Product Image
+                      </th>
+                      <th>
+                          Stock Left
+                      </th>
+                      <th style="width: 8%" class="text-center">
+                          Status
+                      </th>
+                      <th style="width: 20%">
+                      </th>
+                  </tr>
+              </thead>
+              <tbody>
+              {% for product in products %}
+              {% set stockLeft = product.p_quantity - product.p_sold|trim %}
+              {% set totalStock = product.p_quantity|trim %}
+              {% set stockPercentLeft = (stockLeft/totalStock)*100 |round %}
+                  <tr>
+                      <td>
+                          {{ product.p_id }}
+                      </td>
+                      <td>
+                          <a>
+                              {{ product.p_name }}
+                          </a>
+                          <br>
+                          <small>
+                              {{ product.created_at }}
+                          </small>
+                      </td>
+                      <td>
+                        <ul class="list-inline">
+                            {% for productImage in productImages %}
+                                {% if productImage.product_id is same as (product.p_id) %}
+                                    <li class="list-inline-item">
+                                        <img alt="Avatar" class="table-avatar" src="data:image;base64,{{ productImage.image }}" width="40px" height="40px">
+                                    </li>
+                                {% endif %}
+                            {% endfor %}
+                        </ul>
+                      </td>
+                      <td class="project_progress">
+                          <div class="progress progress-sm">
+                              <div class="progress-bar bg-green" role="progressbar" aria-volumenow="57" aria-volumemin="0" aria-volumemax="100" style="width: {{ stockPercentLeft }}%">
+                              </div>
+                          </div>
+                          <small>
+                              {{ stockPercentLeft|number_format(2, '.', ',') }} % Stock left
+                          </small>
+                      </td>
+                      <td class="project-state">
+                      {% if (product.p_status) is same as (1) %}
+                          <span class="badge badge-success">Active</span>
+                      {% else %}
+                          <span class="badge badge-warning">Pending</span>
+                      {% endif %}
+                      </td>
+                      <td class="project-actions text-right">
+                          <a class="btn btn-primary btn-sm" href="{{ path_for('product.page', {'productid': product.p_id}) }}">
+                              <i class="fas fa-folder">
+                              </i>
+                              View <!-- TODO!-->
+                          </a>
+                          <a class="btn btn-danger btn-sm" href="{{ path_for('delete.product', {'vendorid': vendorid, 'productid': product.p_id}) }}">
+                              <i class="fas fa-trash">
+                              </i>
+                              Delete
+                          </a>
+                      </td>
+                  </tr>
+                  {% endfor %}
+              </tbody>
+          </table>
+        </div>
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+
+  <script>
+
+function preview_image() 
+{
+ var total_file=document.getElementById("customFile").files.length;
+ for(var i=0;i<total_file;i++)
+ {
+  $('#image_preview').empty();
+  $('#image_preview').append("<img src='"+URL.createObjectURL(event.target.files[i])+"' width='100%'><br>");
+ }
+}
+</script>
+
+{% endblock %}

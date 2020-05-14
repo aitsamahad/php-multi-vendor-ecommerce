@@ -1,0 +1,30 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+<div id="container">
+    <div class="container">
+      <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-9">  
+        <form action="{{ path_for('post.reporting.page', {'reporterID': user, 'reportedID': storeName.vendorId}) }}" method="POST">                
+                  <h2>Submit a report against <u>[{{ storeName.storeName }}]</u> Store: </h2>
+                  <div class="form-group required">
+                    <div class="col-sm-12">
+                      <label for="input-review" class="control-label">Tell us in detail about your issue here: </label>
+                      <textarea class="form-control" id="input-review" rows="5" name="report_reason" required></textarea>
+                      <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                    </div>
+                  </div>
+                  <div class="buttons">
+                    <div class="pull-right">
+                      <button class="btn btn-primary" id="button-review" type="submit">Continue</button>
+                    </div>
+                  </div>
+          </form>     
+        </div>
+        <!--Middle Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

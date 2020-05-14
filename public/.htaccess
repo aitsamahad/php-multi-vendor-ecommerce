@@ -1,0 +1,15 @@
+php_flag display_errors 0
+
+Options -Multiviews
+RewriteEngine on
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule . index.php [L]
+
+
+
+##RewriteEngine On
+##RewriteBase /usermanagement/public
+##RewriteCond %{REQUEST_FILENAME} !-d
+##RewriteCond %{REQUEST_FILENAME} !-f
+##RewriteRule ^(.+)$ index.php/$1 [QSA,L]

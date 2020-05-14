@@ -1,0 +1,129 @@
+{% extends './dashboard/templates/app.twig' %}
+
+{% block content %}
+<!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Blank Page</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Blank Page</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+          {% if flash.getMessage('Success') %}
+            <div class="alert alert-success"><i class="fa fa-check-circle"></i> {{ flash.getMessage('Success') | first }}</div>
+          {% endif %}
+          
+          {% if flash.getMessage('Danger') %}
+            <div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> {{ flash.getMessage('Danger') | first }}</div>
+          {% endif %}
+    {% if edit %}
+          <form action="{{ path_for('edit.brand', {'brandid': brandid}) }}" method="POST">
+    {% endif %}
+
+    {% if not edit %}
+    <form action="{{ path_for('brand') }}" method="POST">
+    {% endif %}
+    
+      
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Add Brands</h3>
+            </div>
+            <div class="card-body">
+            <div class="form-group">
+             <label for="name">Brand name</label>
+             <input type="text" class="form-control" id="name" placeholder="Brand name" name="b_name" value="{{ brand[0].b_name }}" required>
+            </div>
+            <div class="form-group">
+             <label for="brandDescription">Brand Description</label>
+             <textarea id="brandDescription" class="form-control" name="b_description" rows="4" required>{{ brand[0].b_description }}</textarea>
+            </div>
+
+        <div class="row">
+          <div class="col-12">
+            
+            {% if edit %}
+              <a href="{{ path_for('brand') }}" class="btn btn-secondary">Cancel</a>
+            {% endif %}
+
+            {% if not edit %}
+              {# <a href="#" class="btn btn-secondary">Cancel</a> #}
+            {% endif %}
+
+            {% if edit %}
+              <input type="submit" value="Update Brand" class="btn btn-success float-right">
+            {% endif %}
+
+            {% if not edit %}
+              <input type="submit" value="Add Brand" class="btn btn-success float-right">
+            {% endif %}
+            
+          </div>
+        </div>
+        <form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+        </div>
+        <div class="col-md-6">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Brands List</h3>
+
+            </div>
+            <div class="card-body">
+               <table class="table">
+                <thead>
+                  <tr>
+                    <th>Brands name</th>
+                    <th>Created at</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for brand in brands %}
+                  <tr>
+                    <td>{{ brand.b_name }}</td>
+                    <td>{{ brand.created_at }}</td>
+                    <td class="text-right py-0 align-middle">
+                      <div class="btn-group btn-group-sm">
+                        <a href="{{ path_for('edit.brand', {'brandid': brand.b_id}) }}" class="btn btn-info"><i class="fas fa-pen"></i></a>
+                        <a href="{{ path_for('delete.brand', {'brandid': brand.b_id}) }}" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                      </div>
+                    </td>
+                  </tr>
+                  {% endfor %}
+
+                </tbody>
+              </table>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
+          <!-- /.card -->
+        </div>
+      </div>
+    </section>
+    <br>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+
+  <!-- /.control-sidebar -->
+{% endblock %}

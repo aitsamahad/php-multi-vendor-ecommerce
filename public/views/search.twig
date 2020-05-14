@@ -1,0 +1,98 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+
+  <div id="container">
+    <!-- Feature Box Start-->
+    {# <div class="container">
+      <div class="custom-feature-box row">
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="feature-box fbox_1">
+            <div class="title">Free Shipping</div>
+            <p>Free shipping on order over $1000</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="feature-box fbox_2">
+            <div class="title">Free Return</div>
+            <p>Free return in 24 hour after purchasing</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="feature-box fbox_3">
+            <div class="title">Gift Cards</div>
+            <p>Give the special perfect gift</p>
+          </div>
+        </div>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="feature-box fbox_4">
+            <div class="title">Reward Points</div>
+            <p>Earn and spend with ease</p>
+          </div>
+        </div>
+      </div>
+    </div> #}
+    <!-- Feature Box End-->
+    <div class="container">
+      <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-12">
+          <h1 class="title">Search - {{ keyword }}</h1>
+          <label>Search Criteria</label>
+          <div class="row">
+            <form action="" method="GET">
+            <div class="col-sm-4">
+              <input type="text" class="form-control" name="keyword" placeholder="Keywords" name="search">
+            </div>
+            <div class="col-sm-3">
+              <input type="submit" class="btn btn-primary" id="button-search" value="Search">
+            </div>
+            </form>
+          </div>
+          <br>
+          <div class="product-filter">
+            <div class="row">
+              <div class="col-sm-2 text-right">
+                <label class="control-label" for="input-sort">Sort By:</label>
+              </div>
+              <div class="col-md-3 col-sm-2 text-right">
+                <select id="input-sort" class="form-control col-sm-3">
+                  <option value="" selected="selected">Default</option>
+                  <option value="">Name (A - Z)</option>
+                  <option value="">Name (Z - A)</option>
+                  <option value="">Price (Low &gt; High)</option>
+                  <option value="">Price (High &gt; Low)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <br>
+          <div class="row products-category">
+            {% for product in categoriesProducts %}
+            <div class="product-layout product-grid col-lg-5ths col-md-5ths col-sm-3 col-xs-12">
+              <div class="product-thumb">
+                <div class="image"><a href="{{ path_for('product.page', {'productid': product.p_id}) }}"><img src="data:image;base64,{{ product.image }}" alt=" {{ product.p_name }} " title=" {{ product.p_name }} " class="img-responsive"></a></div>
+                <div>
+                  <div class="caption">
+                    <h4><a href="{{ path_for('product.page', {'productid': product.p_id}) }}"> {{ product.p_name }} </a></h4>
+                    <p class="description">{{ product.p_description }}</p>
+                    <p class="price"> <span class="price-new">Rs.{{ product.p_price }}</span></p>
+                  </div>
+                  <div class="button-group">
+                    <a href="{{ path_for('add.to.cart', {'productid': product.p_id}) }}"><button class="btn-primary" type="button" onclick=""><span>Add to Cart</span></button></a>
+                    <div class="add-to-links">
+                      <button type="button" data-toggle="tooltip" title="" onclick="" data-original-title="Add to Wish List"><i class="fa fa-heart"></i> <span>Add to Wish List</span></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!--Middle Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

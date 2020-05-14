@@ -1,0 +1,82 @@
+{% extends './templates/app.twig' %}
+
+{% block content %}
+<div id="container">
+    <div class="container">
+      <!-- Breadcrumb Start-->
+      <ul class="breadcrumb">
+        <li><a href="{{ path_for('main.page') }}"><i class="fa fa-home"></i></a></li>
+        <li><a href="#">Account</a></li>
+        <li><a href="#">Addresses</a></li>
+      </ul>
+      <!-- Breadcrumb End-->
+      <div class="row">
+        <!--Middle Part Start-->
+        <div id="content" class="col-sm-9">
+        
+        <h1 class="title">Account Information</h1>
+        
+        <table class="table table-bordered table-hover">
+        <thead>
+          <tr>
+            <td colspan="2" class="text-left">My Account Details</td>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="width: 50%;" class="text-left">
+            <b>Name:</b> {{ account.u_name }}<br>
+            <b>Email:</b> {{ account.u_email }} <br>
+            <b>Phone:</b> {{ account.user_phone }}
+              
+              </td>
+            <td style="width: 50%;" class="text-left">
+            <b>Edit your billing details here:</b><br>
+            <form action="{{ path_for('account.addresses.edit') }}" method="post">
+            <label for="address"> Address </label>
+            <input class="form-control" name="address" type="text" value="{{ account.user_address }}" placeholder="{{ account.user_address }}" required/>
+            <br>
+            <label for="city"> City </label> 
+            <input class="form-control" name="city" type="text" value="{{ account.user_city }}" placeholder="{{ account.user_city }}" required/>
+            <br>
+            <label for="state"> State </label>
+            <input class="form-control" name="state" type="text" value="{{ account.user_state }}" placeholder="{{ account.user_state }}" required/>
+            <br>
+            <label for="postcode"> Postcode </label>
+            <input class="form-control" name="postcode" type="text" value="{{ account.user_postcode }}" placeholder="{{ account.user_postcode }}" required/>
+            <br>
+            <input class="form-control btn-primary" type="submit" value="Save" />
+            </form>
+                                                       
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      
+                  
+            
+              
+            
+               
+        </div>
+        <!--Middle Part End -->
+        <!--Right Part Start -->
+                <aside class="col-sm-3 hidden-xs" id="column-right">
+          <h3 class="subtitle">Account</h3>
+          <div class="list-group">
+            <ul class="list-item">
+              <li><a href="{{ path_for('account.addresses') }}">My Account</a></li>
+              <li><a href="{{ path_for('account.addresses') }}">Address Books</a></li>
+              <li><a href="{{ path_for('account.wishlist.page') }}">Wish List</a></li>
+              <li><a href="{{ path_for('reviews.page') }}">Reviews & Pending Reviews</a></li>
+              <li><a href="{{ path_for('order.page') }}">Order History</a></li>
+              <li><a href="{{ path_for('change.password') }}">Change Password</a></li>
+            </ul>
+          </div>
+        </aside>
+        <!--Right Part End -->
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
