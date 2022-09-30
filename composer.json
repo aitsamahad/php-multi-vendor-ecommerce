@@ -7,7 +7,7 @@
         "illuminate/database": "^6.5",
         "respect/validation": "^1.1",
         "slim/flash": "^0.4.0",
-        "twig/twig": "2.14.11",
+        "twig/twig": "2.15.3",
         "lovecoding/twig-asset": "^1.1",
         "andrewdyer/slim3-mailer": "^1.1",
         "ramsey/uuid": "^4.0"
